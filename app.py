@@ -1,12 +1,18 @@
 from flask import Flask
 from src.logger import logging
+from src.exception import CustomException
+import os,sys
 
 app = Flask(__name__)
 
 @app.route('/',methods = ['GET','POST'])
 def index():
-    logging.info("We are testing second method of logging")
-    return "Welocome to Vardhan Hegde's ML pipeline Project session"
-
+    try :
+        raise Exception("we are testing our custom file")
+    except Exception as e:
+        abc = CustomException(e,sys)
+        logging.info(abc.error_message)
+        return "Welocome to Vardhan Hegde's ML pipeline Project session"
+    
 if __name__ == "__main__":
     app.run(debug = True)
